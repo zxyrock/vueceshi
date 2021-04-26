@@ -1,20 +1,21 @@
 <template>
   <div id="Home">
-    <nav-bar class="home-nav"
-      ><template v-slot:center> 购物街 </template></nav-bar
-    >
+    <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
     <home-swiper :banners="banners" />
     <recommend-view :recommends="recommends" />
     <feature-view />
-    <div v-for="item in 100" :key="item">fff</div>
+    <tab-control class="tab-control" :titles="titles"/>
+    <div v-for="item in 100" :key="item">{{item}}</div>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
+
+import NavBar from "@/components/common/navbar/NavBar";
+import TabControl from '@/components/content/TabControl/TabControl'
 
 import { getHomeMultidata } from "@/network/home";
 
@@ -25,11 +26,13 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
+    TabControl
   },
   data() {
     return {
       banners: [],
       recommends: [],
+      titles:['流行','新款','热销']
     };
   },
   created() {
@@ -59,5 +62,9 @@ export default {
   left: 0;
   top: 0;
   z-index: 9;
+}
+.tab-control{
+  position: sticky;
+  top: 44px;
 }
 </style>
