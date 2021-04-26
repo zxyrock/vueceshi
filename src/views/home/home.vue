@@ -32,7 +32,12 @@ export default {
     return {
       banners: [],
       recommends: [],
-      titles:['流行','新款','热销']
+      titles:['流行','新款','热销'],
+      goods: {
+        'pop': {page: 0, list: []},
+        'new': {page: 0, list: []},
+        'sell': {page: 0, list: []},
+      }
     };
   },
   created() {
