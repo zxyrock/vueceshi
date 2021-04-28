@@ -17,7 +17,7 @@ import FeatureView from "./childComps/FeatureView";
 import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from '@/components/content/TabControl/TabControl'
 
-import { getHomeMultidata } from "@/network/home";
+import { getHomeMultidata,getHomeGoods } from "@/network/home";
 
 export default {
   name: "Home",
@@ -42,15 +42,37 @@ export default {
   },
   created() {
     // 1.请求首页的多个数据
-    getHomeMultidata()
-      .then((res) => {
+    this.getHomeMultidata();
+
+      // 2.请求商品数据
+      this.getHomeGoods('pop');
+      this.getHomeGoods('new');
+      this.getHomeGoods('sell');
+      
+  },
+  methods: {
+    getHomeMultidata(){
+      getHomeMultidata().then(res => {
         console.log(res);
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list;
-      })
-      .catch((err) => {
-        console.log("数据请求失败", err);
+      }).catch(err => {
+        console.log("首页数据请求失败", err);
       });
+    },
+    getHomeGoods(type){
+      // const page = this.goods[type].page + 1;
+      const page = this.goods[type].page + 1
+      getHomeGoods(type,page).then(res=>{
+        console.log(res);
+        this.goods[type].list.push(...res.data.list);
+        this.goods[type].page += 1;
+
+      }).catch(err=>{
+        console.log('请求商品数据失败',err)
+      })
+    }
+    
   },
 };
 </script>
