@@ -5,7 +5,7 @@
     <recommend-view :recommends="recommends" />
     <feature-view />
     <tab-control class="tab-control" :titles="titles"/>
-    <div v-for="item in 100" :key="item">{{item}}</div>
+    <goods-list :goods="goods['pop'].list"/>
   </div>
 </template>
 
@@ -15,7 +15,8 @@ import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "@/components/common/navbar/NavBar";
-import TabControl from '@/components/content/TabControl/TabControl'
+import TabControl from '@/components/content/TabControl/TabControl';
+import GoodsList from '@/components/content/goods/GoodsList';
 
 import { getHomeMultidata,getHomeGoods } from "@/network/home";
 
@@ -26,7 +27,8 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodsList
   },
   data() {
     return {
@@ -93,5 +95,6 @@ export default {
 .tab-control{
   position: sticky;
   top: 44px;
+  z-index: 9;
 }
 </style>
