@@ -4,8 +4,9 @@
     <home-swiper :banners="banners" />
     <recommend-view :recommends="recommends" />
     <feature-view />
-    <tab-control class="tab-control" :titles="titles"/>
-    <goods-list :goods="goods['pop'].list"/>
+    <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
+    
+    <goods-list :goods="showGoods"/>
   </div>
 </template>
 
@@ -39,8 +40,14 @@ export default {
         'pop': {page: 0, list: []},
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []},
-      }
+      },
+      currentType:'pop'
     };
+  },
+  computed:{
+    showGoods(){
+     return this.goods[this.currentType].list
+    }
   },
   created() {
     // 1.请求首页的多个数据
@@ -53,6 +60,28 @@ export default {
       
   },
   methods: {
+    /*
+      事件监听相关方法
+     
+    */
+    tabClick(index){
+      switch (index) {
+        case 0:
+          this.currentType ="pop";
+          break;
+        case 1:
+          this.currentType ="new";
+          break;
+        case 1:
+          this.currentType ="sell";
+          break;
+      }
+
+    },
+
+    /*
+       网络请求相关方法
+    */
     getHomeMultidata(){
       getHomeMultidata().then(res => {
         console.log(res);
@@ -63,7 +92,6 @@ export default {
       });
     },
     getHomeGoods(type){
-      // const page = this.goods[type].page + 1;
       const page = this.goods[type].page + 1
       getHomeGoods(type,page).then(res=>{
         console.log(res);
@@ -83,6 +111,7 @@ export default {
 #Home {
   padding-top: 44px;
 }
+
 .home-nav {
   background: var(--color-tint);
   color: #fff;
@@ -92,9 +121,11 @@ export default {
   top: 0;
   z-index: 9;
 }
+
 .tab-control{
   position: sticky;
   top: 44px;
   z-index: 9;
 }
+
 </style>
