@@ -5,7 +5,6 @@
     <recommend-view :recommends="recommends" />
     <feature-view />
     <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
-    
     <goods-list :goods="showGoods"/>
   </div>
 </template>
@@ -127,5 +126,6 @@ export default {
   top: 44px;
   z-index: 9;
 }
+
 
 </style>
