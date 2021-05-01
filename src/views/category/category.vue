@@ -2,6 +2,7 @@
 
   <div class="wrapper">
     <ul class="content">
+      <button @click="btnClick">按钮</button>
       <li>分类1</li>
       <li>分类2</li>
       <li>分类3</li>
@@ -140,6 +141,11 @@ export default {
       
     })
     console.log(this.scroll,'123')
+  },
+  methods:{
+    btnClick(){
+      console.log('btnclick')
+    }
   }
 };
 console.log(BScroll,"----");
