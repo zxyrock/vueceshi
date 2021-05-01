@@ -1,4 +1,5 @@
 <template>
+
   <div class="wrapper">
     <ul class="content">
       <li>分类1</li>
@@ -118,9 +119,30 @@ export default {
   // created：组件创建完后调用
   created() {},
   mounted() {
-    this.scroll = new BScroll(".wrapper", {});
-  },
+    // 默认情况下，BScroll是不可以实时监听滚动位置的
+    // probeType 侦侧，可选值： 0 1 2 
+    // 0和1都是不侦测实时位置的
+    // 传值2时表示侦测，在手指滚动的过程在侦测，在手指离开后的惯性滚动不侦测
+    // 传值3时，只要是滚动，都进行侦测
+    this.scroll = new BScroll(".wrapper", {
+      probeType:3,
+      click:true,
+      pullUpLoad:true
+    });
+    this.scroll.on('scroll',(position) => {
+      // console.log(position,'123')
+    })
+    this.scroll.on('pullingUp',()=>{
+      console.log('上拉加载更多')
+      // 该函数只会调用一次，不会重复调用，所以要先发送网络请求，请求更多页的数据，
+      // 等数据请求完成，并且将新的数据展示出来后，必须调用this.scroll.finishPullUp()才能做下一次的上拉加载更多
+      setTimeout(() =>{this.scroll.finishPullUp()},2000)
+      
+    })
+    console.log(this.scroll,'123')
+  }
 };
+console.log(BScroll,"----");
 </script>
 
 <style>
