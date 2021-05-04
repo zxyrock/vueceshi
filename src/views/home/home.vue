@@ -1,14 +1,14 @@
 <template>
   <div id="Home">
     <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
       <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
       <goods-list :goods="showGoods"/>
     </scroll>
-         
+    <back-top @click="backClick"/>
     </div>
     
 </template>
@@ -21,8 +21,8 @@ import FeatureView from "./childComps/FeatureView";
 import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from '@/components/content/TabControl/TabControl';
 import GoodsList from '@/components/content/goods/GoodsList';
-// import BScroll from "better-scroll";
 import Scroll from '@/components/content/scroll/Scroll';
+import BackTop from '../../components/content/backTop/BackTop';
 
 import { getHomeMultidata,getHomeGoods } from "@/network/home";
 
@@ -36,7 +36,8 @@ export default {
     FeatureView,
     TabControl,
     GoodsList,
-    Scroll
+    Scroll,
+    BackTop
   },
   data() {
     return {
@@ -84,6 +85,12 @@ export default {
           break;
       }
 
+    },
+    backClick(){
+      // console.log('回到顶部')
+      this.$refs.scroll.scrollTo(0,0)
+
+      
     },
 
     /*
@@ -142,7 +149,7 @@ export default {
 .content{
   /* height: 300px; */
   overflow: hidden;
-  
+
   position: absolute;
   top: 44px;
   bottom: 49px;
