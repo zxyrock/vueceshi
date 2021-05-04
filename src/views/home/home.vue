@@ -1,15 +1,14 @@
 <template>
   <div id="Home">
     <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
-    <div class="wrapper">
-      <div class="content">
-         <home-swiper :banners="banners" />
-         <recommend-view :recommends="recommends" />
-         <feature-view />
-         <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
-         <goods-list :goods="showGoods"/>
-       </div>
-      </div>
+    <scroll class="content">
+      <home-swiper :banners="banners" />
+      <recommend-view :recommends="recommends" />
+      <feature-view />
+      <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
+      <goods-list :goods="showGoods"/>
+    </scroll>
+         
     </div>
     
 </template>
@@ -22,9 +21,11 @@ import FeatureView from "./childComps/FeatureView";
 import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from '@/components/content/TabControl/TabControl';
 import GoodsList from '@/components/content/goods/GoodsList';
+// import BScroll from "better-scroll";
+import Scroll from '@/components/content/scroll/Scroll';
 
 import { getHomeMultidata,getHomeGoods } from "@/network/home";
-import BScroll from "better-scroll";
+
 
 export default {
   name: "Home",
@@ -35,7 +36,7 @@ export default {
     FeatureView,
     TabControl,
     GoodsList,
-    BScroll
+    Scroll
   },
   data() {
     return {
@@ -113,9 +114,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #Home {
   padding-top: 44px;
+
+  height: 100vh;
+
+  position: relative;
 }
 
 .home-nav {
@@ -134,5 +139,20 @@ export default {
   z-index: 9;
 }
 
+.content{
+  /* height: 300px; */
+  overflow: hidden;
+  
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+}
 
+/* .content{
+  height: calc(100% - 93px);
+  overflow: hidden;
+  margin-top: 44px;
+} */
 </style>
