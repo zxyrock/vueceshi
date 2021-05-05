@@ -1,15 +1,124 @@
 <template>
   <div>
-    我的
+    <scroll class="content">
+      <ul>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+        <li>信息</li>
+      </ul>
+    </scroll>
+    
   </div>
 </template>
 
 <script>
+import Scroll from '@/components/content/scroll/Scroll';
 export default {
+  components: { Scroll },
   name:'Profile'
 }
 </script>
 
 <style>
-
+.content{
+  height: 400px;
+  background: pink;
+}
 </style>

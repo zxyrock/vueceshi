@@ -1,14 +1,14 @@
 <template>
   <div id="Home">
     <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
-    <scroll class="content" ref="scroll">
+    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
       <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
       <goods-list :goods="showGoods"/>
     </scroll>
-    <back-top @click="backClick"/>
+    <back-top @click="backClick" v-show="isShowBackTop"/>
     </div>
     
 </template>
@@ -49,7 +49,8 @@ export default {
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []},
       },
-      currentType:'pop'
+      currentType:'pop',
+      isShowBackTop:false
     };
   },
   computed:{
@@ -91,6 +92,11 @@ export default {
       this.$refs.scroll.scrollTo(0,0)
 
       
+    },
+    contentScroll(position){
+      // console.log(position)
+      this.isShowBackTop = (-position.y) > 1000
+
     },
 
     /*
