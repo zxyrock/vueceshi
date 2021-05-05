@@ -1,7 +1,9 @@
 <template>
   <div id="Home">
     <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
-    <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <scroll class="content" ref="scroll" 
+            :probe-type="3" :pull-up-load="true" 
+            @scroll="contentScroll" @pullingUp="loadMore">
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -98,6 +100,11 @@ export default {
       this.isShowBackTop = (-position.y) > 1000
 
     },
+    loadMore(){
+      // console.log('上拉请求数据')
+      this.getHomeGoods(this.currentType)
+      
+    },
 
     /*
        网络请求相关方法
@@ -117,6 +124,8 @@ export default {
         console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+
+        this.$refs.scroll.finishPullUp()
 
       }).catch(err=>{
         console.log('请求商品数据失败',err)
