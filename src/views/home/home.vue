@@ -3,7 +3,7 @@
     <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
     <scroll class="content" ref="scroll" 
             :probe-type="3" :pull-up-load="true" 
-            @scroll="contentScroll" @pullingUp="loadMore">
+            @scroll="contentScroll" >
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -64,11 +64,20 @@ export default {
     // 1.请求首页的多个数据
     this.getHomeMultidata();
 
-      // 2.请求商品数据
-      this.getHomeGoods('pop');
-      this.getHomeGoods('new');
-      this.getHomeGoods('sell');
+    // 2.请求商品数据
+    this.getHomeGoods('pop');
+    this.getHomeGoods('new');
+    this.getHomeGoods('sell');
+
+    
       
+  },
+  mounted(){
+    // 3.监听goodsItem中图片加载完成
+    this.$bus.$on('itemImageLoad',() => {
+      this.$refs.scroll.refresh()
+      console.log('456')
+    })
   },
   methods: {
     /*
@@ -100,11 +109,11 @@ export default {
       this.isShowBackTop = (-position.y) > 1000
 
     },
-    loadMore(){
-      // console.log('上拉请求数据')
-      this.getHomeGoods(this.currentType)
+    // loadMore(){
+    //   // console.log('上拉请求数据')
+    //   this.getHomeGoods(this.currentType)
       
-    },
+    // },
 
     /*
        网络请求相关方法
@@ -125,7 +134,7 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
 
-        this.$refs.scroll.finishPullUp()
+        // this.$refs.scroll.finishPullUp()
 
       }).catch(err=>{
         console.log('请求商品数据失败',err)
