@@ -74,9 +74,11 @@ export default {
   },
   mounted(){
     // 3.监听goodsItem中图片加载完成
+
+    const refresh = this.debounce(this.$refs.scroll.refresh,200)
+
     this.$bus.$on('itemImageLoad',() => {
-      this.$refs.scroll.refresh()
-      console.log('456')
+      refresh()
     })
   },
   methods: {
@@ -84,6 +86,20 @@ export default {
       事件监听相关方法
      
     */
+   debounce(func, wait){
+     let timer;
+      return function(...args) {
+      // arguments中存着e
+      let args = arguments; 
+      
+         
+      if (timer) clearTimeout(timer);
+ 
+      timer = setTimeout(() => {
+        func.apply(this, args)
+      }, wait)
+    }
+   },
     tabClick(index){
       switch (index) {
         case 0:
