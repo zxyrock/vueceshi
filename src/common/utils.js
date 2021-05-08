@@ -1,6 +1,6 @@
 export function debounce(func, wait){
   let timer;
-   return function(...args) {
+   return function() {
    // arguments中存着e
    let args = arguments; 
    
