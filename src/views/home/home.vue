@@ -24,9 +24,10 @@ import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from '@/components/content/TabControl/TabControl';
 import GoodsList from '@/components/content/goods/GoodsList';
 import Scroll from '@/components/content/scroll/Scroll';
-import BackTop from '../../components/content/backTop/BackTop';
+import BackTop from '@/components/content/backTop/BackTop';
 
 import { getHomeMultidata,getHomeGoods } from "@/network/home";
+import {debounce} from '@/common/utils';
 
 
 export default {
@@ -75,7 +76,7 @@ export default {
   mounted(){
     // 3.监听goodsItem中图片加载完成
 
-    const refresh = this.debounce(this.$refs.scroll.refresh,200)
+    const refresh = debounce(this.$refs.scroll.refresh,200)
 
     this.$bus.$on('itemImageLoad',() => {
       refresh()
@@ -86,20 +87,7 @@ export default {
       事件监听相关方法
      
     */
-   debounce(func, wait){
-     let timer;
-      return function(...args) {
-      // arguments中存着e
-      let args = arguments; 
-      
-         
-      if (timer) clearTimeout(timer);
- 
-      timer = setTimeout(() => {
-        func.apply(this, args)
-      }, wait)
-    }
-   },
+   
     tabClick(index){
       switch (index) {
         case 0:
