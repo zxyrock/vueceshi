@@ -7,7 +7,7 @@
       <home-swiper :banners="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view />
-      <tab-control class="tab-control" :titles="titles" @tabClick="tabClick"/>
+      <tab-control :titles="titles" @tabClick="tabClick" ref="tabControl" />
       <goods-list :goods="showGoods"/>
     </scroll>
     <back-top @click="backClick" v-show="isShowBackTop"/>
@@ -53,7 +53,8 @@ export default {
         'sell': {page: 0, list: []},
       },
       currentType:'pop',
-      isShowBackTop:false
+      isShowBackTop:false,
+      tabOffsetTop:0
     };
   },
   computed:{
@@ -70,17 +71,24 @@ export default {
     this.getHomeGoods('new');
     this.getHomeGoods('sell');
 
+    //3.赋值
+    
     
       
   },
   mounted(){
+
     // 3.监听goodsItem中图片加载完成
+    const refresh = debounce(this.$refs.scroll.refresh,3000)
 
-    const refresh = debounce(this.$refs.scroll.refresh,200)
+    // this.$bus.$on('itemImageLoad',() => {
+    //   refresh()
+    // })
+    refresh()
 
-    this.$bus.$on('itemImageLoad',() => {
-      refresh()
-    })
+    // 3.获取tabControl的offsetTop
+    // 注：所有的组件都有一个属性：$el:用于获取组件内的元素的
+    console.log(this.$refs.tabControl.$el.offsetTop)
   },
   methods: {
     /*
@@ -170,7 +178,7 @@ export default {
 }
 
 .tab-control{
-  position: sticky;
+  /* position: sticky; */
   top: 44px;
   z-index: 9;
 }
