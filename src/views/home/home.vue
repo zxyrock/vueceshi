@@ -1,13 +1,14 @@
 <template>
   <div id="Home">
     <nav-bar class="home-nav"><template v-slot:center> 购物街 </template></nav-bar>
+    <tab-control :titles="titles" @tabClick="tabClick" ref="tabControl1" :class="tab-control" v-show="isTabFixed" />
     <scroll class="content" ref="scroll" 
             :probe-type="3" :pull-up-load="true" 
             @scroll="contentScroll"  @pullingUp="loadMore">
-      <home-swiper :banners="banners" />
+      <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommends="recommends" />
       <feature-view />
-      <tab-control :titles="titles" @tabClick="tabClick" ref="tabControl" />
+      <tab-control :titles="titles" @tabClick="tabClick" ref="tabControl2" />
       <goods-list :goods="showGoods"/>
     </scroll>
     <back-top @click="backClick" v-show="isShowBackTop"/>
@@ -54,7 +55,8 @@ export default {
       },
       currentType:'pop',
       isShowBackTop:false,
-      tabOffsetTop:0
+      tabOffsetTop:0,
+      isTabFixed:false
     };
   },
   computed:{
@@ -85,10 +87,10 @@ export default {
     //   refresh()
     // })
     refresh()
+    
 
-    // 3.获取tabControl的offsetTop
-    // 注：所有的组件都有一个属性：$el:用于获取组件内的元素的
-    console.log(this.$refs.tabControl.$el.offsetTop)
+    
+    
   },
   methods: {
     /*
@@ -108,7 +110,8 @@ export default {
           this.currentType ="sell";
           break;
       }
-
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     backClick(){
       // console.log('回到顶部')
@@ -118,7 +121,12 @@ export default {
     },
     contentScroll(position){
       // console.log(position)
+      // 1.判断backTop是否显示
       this.isShowBackTop = (-position.y) > 1000
+
+      // 2.决定tabControl是否吸顶（position：fixed）
+      this.isTabFixed = (-position.y) > this.tabOffsetTop
+
 
     },
     loadMore(){
@@ -126,13 +134,20 @@ export default {
       this.getHomeGoods(this.currentType)
       
     },
+    swiperImageLoad(){
+      // 3.获取tabControl的offsetTop
+      // 注：所有的组件都有一个属性：$el:用于获取组件内的元素的
+      // console.log(this.$refs.tabControl2.$el.offsetTop)
+
+       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
+    },
 
     /*
        网络请求相关方法
     */
     getHomeMultidata(){
       getHomeMultidata().then(res => {
-        console.log(res);
+        // console.log(res);
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list;
       }).catch(err => {
@@ -142,7 +157,7 @@ export default {
     getHomeGoods(type){
       const page = this.goods[type].page + 1
       getHomeGoods(type,page).then(res=>{
-        console.log(res);
+        // console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
 
@@ -194,6 +209,11 @@ export default {
   right: 0;
 }
 
+.tab-control{
+  position: relative;
+  top: 0;
+  z-index: 9;
+}
 /* .content{
   height: calc(100% - 93px);
   overflow: hidden;
