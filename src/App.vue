@@ -1,19 +1,23 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-    <main-tab-bar class="tabbar"></main-tab-bar>
-    
+  <div id="app" class="wrapper">
+    <!-- <router-view /> -->
+    <router-view v-slot="{ Component }">
+      <keep-alive include="Home,News">
+        <component class="view" :is="Component" />
+      </keep-alive>
+    </router-view>
+
+    <main-tab-bar class="tabbar" />
   </div>
 </template>
 
 <script>
-import MainTabBar from '@/components/content/MainTabBar/MainTabBar'
-
+import MainTabBar from "@/components/content/MainTabBar/MainTabBar";
 
 export default {
   name: "App",
   components: {
-    MainTabBar
+    MainTabBar,
   },
 };
 </script>
@@ -21,7 +25,11 @@ export default {
 <style>
 @import "~@/assets/css/base.css";
 
-.tabbar{
+/* #app{
+  height: 100vh;
+} */
+
+.tabbar {
   z-index: 100;
 }
 </style>

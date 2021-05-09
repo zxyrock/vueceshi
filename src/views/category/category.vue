@@ -140,7 +140,7 @@ export default {
       setTimeout(() =>{this.scroll.finishPullUp()},2000)
       
     })
-    console.log(this.scroll,'123')
+    // console.log(this.scroll,'123')
   },
   methods:{
     btnClick(){
@@ -148,7 +148,7 @@ export default {
     }
   }
 };
-console.log(BScroll,"----");
+// console.log(BScroll,"----");
 </script>
 
 <style>
