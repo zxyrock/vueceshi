@@ -2,7 +2,7 @@
   <div id="app" class="wrapper">
     <!-- <router-view /> -->
     <router-view v-slot="{ Component }">
-      <keep-alive include="Home,News">
+      <keep-alive include="Home,News" exclude="detail">
         <component class="view" :is="Component" />
       </keep-alive>
     </router-view>
