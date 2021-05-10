@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .nav-bar{
   height: 44px;
   line-height: 44px;
@@ -28,4 +28,5 @@ export default {
 .center{
   flex: 1;
 }
+
 </style>
