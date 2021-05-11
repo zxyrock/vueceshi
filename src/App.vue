@@ -30,6 +30,6 @@ export default {
 } */
 
 .tabbar {
-  z-index: 100;
+  z-index: 9;
 }
 </style>
