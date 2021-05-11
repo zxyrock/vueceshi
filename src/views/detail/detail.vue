@@ -3,6 +3,7 @@
     <detail-nav-bar/>
     <detail-swiper :top-images="topImages"/>
     <detail-base-info :goods="goods"/>
+    <detail-shop-info :shop="shop"/>
   </div>
 </template>
 
@@ -10,8 +11,9 @@
 import DetailNavBar from './detailComps/DetailNavBar';
 import DetailSwiper from './detailComps/DetailSwiper';
 import DetailBaseInfo from './detailComps/DetailBaseInfo'
+import DetailShopInfo from './detailComps/DetailShopInfo'
 
-import {getDetail,Goods} from '@/network/detail';
+import {getDetail,Goods,Shop} from '@/network/detail';
 
 export default {
   name:'Detail',
@@ -19,13 +21,15 @@ export default {
     return {
       iid:null,
       topImages:[],
-      goods:{}
+      goods:{},
+      shop:{}
     }
   },
   components:{
     DetailNavBar,
     DetailSwiper,
-    DetailBaseInfo
+    DetailBaseInfo,
+    DetailShopInfo
   },
   created(){
     // 1.保存传入的iid
@@ -40,6 +44,11 @@ export default {
       // 2.获取商品数据的基本信息
       const data = res.result
       this.goods= new Goods(data.itemInfo,data.columns,data.shopInfo.services)
+
+      // 3.创建店铺信息对象
+      this.shop = new Shop(data.shopInfo)
+      
+
     }).catch(err => {
       console.log('详情页数据请求失败',err)
     })
