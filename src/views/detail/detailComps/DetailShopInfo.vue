@@ -8,7 +8,7 @@
       <div class="shop-middle-item shop-middle-left">
         <div class="info-sells">
           <div class="sells-count">
-            {{shop.sells | sellCountFilter}}
+            {{shop.sells}}
           </div>
           <div class="sells-text">总销量</div>
         </div>
@@ -43,8 +43,15 @@
 		    type: Object
       }
     },
-    filters: {
-      sellCountFilter: function (value) {
+    // filters: {
+    //   sellCountFilter: function (value) {
+    //     if (value < 10000) return value;
+    //     return (value/10000).toFixed(1) + '万'
+    //   }
+    // },
+    component:{
+      sellSells(){
+        let value = this.shop.sells
         if (value < 10000) return value;
         return (value/10000).toFixed(1) + '万'
       }
