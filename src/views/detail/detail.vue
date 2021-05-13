@@ -26,6 +26,8 @@ import Scroll from "@/components/content/scroll/Scroll"
 import GoodsList from "@/components/content/goods/GoodsList"
 
 import {getDetail,Goods,Shop,GoodsParam,getRecommend} from '@/network/detail';
+// import {debounce} from '@/common/utils';
+import {itemListenerMixin} from "@/common/mixin";
 
 export default {
   name:'Detail',
@@ -38,7 +40,8 @@ export default {
       detailInfo:{},
       paramInfo: {},
       commentInfo: {},
-      recommends:[]
+      recommends:[],
+      itemImgListener:null
     }
   },
   components:{
@@ -54,6 +57,7 @@ export default {
     
     
   },
+  mixins:[itemListenerMixin],
   created(){
     // 1.保存传入的iid
     this.iid = this.$route.params.iid
@@ -101,6 +105,23 @@ export default {
     imageLoad(){
       this.$refs.scroll.refresh()
     }
+  },
+  mounted(){
+    // const refresh = debounce(this.$refs.scroll.refresh,3000)
+    // this.itemImgListener = () => { refresh()}
+    // refresh()
+
+    // this.$bus.$on("itemImageLoad",this.itemImgListener)
+
+    // itemListenerMixin()
+  },
+  // deactivated(){
+  //   console.log('退出了详情页')
+  // }
+  unmounted(){
+    console.log('详情页 被销毁');
+    // this.$bus.$off("itemImageLoad",this.itemImgListener)
+    // this.$refs.scroll.getScrollY() = this.saveY
   }
 }
 </script>

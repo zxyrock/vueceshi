@@ -28,7 +28,8 @@ import Scroll from '@/components/content/scroll/Scroll';
 import BackTop from '@/components/content/backTop/BackTop';
 
 import { getHomeMultidata,getHomeGoods } from "@/network/home";
-import {debounce} from '@/common/utils';
+// import {debounce} from '@/common/utils';
+import {itemListenerMixin} from "@/common/mixin";
 
 
 export default {
@@ -43,6 +44,7 @@ export default {
     Scroll,
     BackTop
   },
+  mixins:[itemListenerMixin],
   data() {
     return {
       banners: [],
@@ -57,7 +59,8 @@ export default {
       isShowBackTop:false,
       tabOffsetTop:0,
       isTabFixed:false,
-      saveY:0
+      saveY:0,
+      itemImgListener:null
     };
   },
   computed:{
@@ -73,8 +76,12 @@ export default {
    this.$refs.scroll.refresh()
   },
   deactivated(){
+    // 1.保存Y值
     this.saveY = this.$refs.scroll.getScrollY()
     console.log(this.saveY)
+
+    // 2.取消全局事件的监听，注：实际上因为bus不知怎么用，因此这里实际上没监听
+    // this.$bus.$off('itemImageLoad',this.itemImgListener)
   },
   created() {
     // 1.请求首页的多个数据
@@ -93,15 +100,13 @@ export default {
   mounted(){
 
     // 3.监听goodsItem中图片加载完成
-    const refresh = debounce(this.$refs.scroll.refresh,3000)
+    // const refresh = debounce(this.$refs.scroll.refresh,3000)
 
-    // this.$bus.$on('itemImageLoad',() => {
-    //   refresh()
-    // })
-    refresh()
-    
 
-    
+    // 对监听的事件进行保存
+    // this.itemImgListener = () => { refresh()}
+    // this.$bus.$on('itemImageLoad',this.itemImgListener)
+    // refresh()
     
   },
   methods: {
