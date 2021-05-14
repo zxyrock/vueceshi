@@ -11,7 +11,7 @@
       <tab-control :titles="titles" @tabClick="tabClick" ref="tabControl2" />
       <goods-list :goods="showGoods"/>
     </scroll>
-    <back-top @click="backClick" v-show="isShowBackTop"/>
+    <back-top @click="backTop" v-show="isShowBackTop"/>
     </div>
     
 </template>
@@ -25,11 +25,11 @@ import NavBar from "@/components/common/navbar/NavBar";
 import TabControl from '@/components/content/TabControl/TabControl';
 import GoodsList from '@/components/content/goods/GoodsList';
 import Scroll from '@/components/content/scroll/Scroll';
-import BackTop from '@/components/content/backTop/BackTop';
+
 
 import { getHomeMultidata,getHomeGoods } from "@/network/home";
 // import {debounce} from '@/common/utils';
-import {itemListenerMixin} from "@/common/mixin";
+import {itemListenerMixin,backTopMixin} from "@/common/mixin";
 
 
 export default {
@@ -42,9 +42,9 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop
+    // BackTop
   },
-  mixins:[itemListenerMixin],
+  mixins:[itemListenerMixin,backTopMixin],
   data() {
     return {
       banners: [],
@@ -56,7 +56,6 @@ export default {
         'sell': {page: 0, list: []},
       },
       currentType:'pop',
-      isShowBackTop:false,
       tabOffsetTop:0,
       isTabFixed:false,
       saveY:0,
@@ -130,12 +129,7 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick(){
-      // console.log('回到顶部')
-      this.$refs.scroll.scrollTo(0,0)
-
-      
-    },
+    
     contentScroll(position){
       // console.log(position)
       // 1.判断backTop是否显示

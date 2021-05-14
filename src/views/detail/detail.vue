@@ -11,7 +11,11 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo"/>
       <goods-list ref="recommends" :goods="recommends"/>
     </scroll>
+    
     <detail-bottom-bar/>
+
+    <back-top @click="backTop" v-show="isShowBackTop"/>
+    
   </div>
 </template>
 
@@ -30,7 +34,7 @@ import GoodsList from "@/components/content/goods/GoodsList"
 
 import {getDetail,Goods,Shop,GoodsParam,getRecommend} from '@/network/detail';
 // import {debounce} from '@/common/utils';
-import {itemListenerMixin} from "@/common/mixin";
+import {itemListenerMixin,backTopMixin} from "@/common/mixin";
 
 export default {
   name:'Detail',
@@ -63,7 +67,7 @@ export default {
     
     
   },
-  mixins:[itemListenerMixin],
+  mixins:[itemListenerMixin,backTopMixin],
   created(){
     // 1.保存传入的iid
     this.iid = this.$route.params.iid
@@ -178,6 +182,9 @@ export default {
             this.currentIndex = i
             this.$refs.nav.currentIndex = this.currentIndex
         }
+
+        // 3.是否显示回到顶部
+        this.isShowBackTop = (-position.y) > 1000
 
 
       }
