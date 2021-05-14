@@ -1,14 +1,15 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav"/>
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick"/>
     <scroll class="content" ref="scroll">
+      <!--属性：topImages， 传入值：top-images-->
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
       <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
-      <detail-param-info :param-info="paramInfo" />
-      <detail-comment-info :comment-info="commentInfo"/>
-      <goods-list :goods="recommends"/>
+      <detail-param-info ref="param" :param-info="paramInfo" />
+      <detail-comment-info ref="comment" :comment-info="commentInfo"/>
+      <goods-list ref="recommends" :goods="recommends"/>
     </scroll>
   </div>
 </template>
@@ -41,7 +42,8 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommends:[],
-      itemImgListener:null
+      itemImgListener:null,
+      themeTopYs:[]
     }
   },
   components:{
@@ -64,7 +66,7 @@ export default {
 
     // 2.根据iid请求详情数据
     getDetail(this.iid).then(res=> {
-      console.log(res)
+      // console.log(res)
       // 1.获取轮播图数据
       this.topImages = res.result.itemInfo.topImages
 
@@ -86,6 +88,19 @@ export default {
         this.commentInfo = data.rate.list[0]
       }
       
+      // this.$nextTick(() => {
+        // 根据最新的数据，对应的DOM是已经被渲染出来的
+        // 但是图片依然是没有加载完（目前获取到的offetTop是不包含图片的）
+        // 一般的情况下，offsetTop的值不，都是因为图片的问题
+        // this.themeTopYs = []
+
+        // this.themeTopYs.push(0);
+        // this.themeTopYs.push(this.$refs.param.$el.offsetTop-44);
+        // this.themeTopYs.push(this.$refs.comment.$el.offsetTop-44);
+        // this.themeTopYs.push(this.$refs.recommends.$el.offsetTop-44);
+        // console.log(this.themeTopYs,"---")
+      // })
+      
       
 
     }).catch(err => {
@@ -94,7 +109,7 @@ export default {
 
     // 3.请求推荐数据
     getRecommend().then(res => {
-      console.log(res)
+      // console.log(res)
       this.recommends = res.data.list
 
     }).catch(err => {
@@ -104,6 +119,23 @@ export default {
   methods:{
     imageLoad(){
       this.$refs.scroll.refresh()
+
+      let num = 1;
+      num ++;
+      console.log(num)
+
+      this.themeTopYs = []
+
+      this.themeTopYs.push(0);
+      this.themeTopYs.push(this.$refs.param.$el.offsetTop-44);
+      this.themeTopYs.push(this.$refs.comment.$el.offsetTop-44);
+      this.themeTopYs.push(this.$refs.recommends.$el.offsetTop-44);
+      // console.log(this.themeTopYs,"---")
+    },
+    titleClick(index){
+      console.log(index)
+      this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],100)
+
     }
   },
   mounted(){
@@ -114,6 +146,8 @@ export default {
     // this.$bus.$on("itemImageLoad",this.itemImgListener)
 
     // itemListenerMixin()
+
+    
   },
   // deactivated(){
   //   console.log('退出了详情页')
@@ -122,7 +156,15 @@ export default {
     console.log('详情页 被销毁');
     // this.$bus.$off("itemImageLoad",this.itemImgListener)
     // this.$refs.scroll.getScrollY() = this.saveY
-  }
+  },
+  // updated(){
+  //   this.themeTopYs = []
+  //   this.themeTopYs.push(0);
+  //   this.themeTopYs.push(this.$refs.param.$el.offsetTop);
+  //   this.themeTopYs.push(this.$refs.comment.$el.offsetTop);
+  //   this.themeTopYs.push(this.$refs.recommends.$el.offsetTop);
+  //   console.log(this.themeTopYs,"---")
+  // }
 }
 </script>
 

@@ -78,7 +78,7 @@ export default {
   deactivated(){
     // 1.保存Y值
     this.saveY = this.$refs.scroll.getScrollY()
-    console.log(this.saveY)
+    // console.log(this.saveY)
 
     // 2.取消全局事件的监听，注：实际上因为bus不知怎么用，因此这里实际上没监听
     // this.$bus.$off('itemImageLoad',this.itemImgListener)

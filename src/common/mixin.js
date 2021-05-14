@@ -11,6 +11,6 @@ export const itemListenerMixin = {
     // this.itemImgListener = () => { refresh()}
     refresh()
 
-    console.log('我是混入中的内容')
+    // console.log('我是混入中的内容')
   },
 }
