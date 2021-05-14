@@ -131,6 +131,7 @@ export default {
       this.themeTopYs.push(this.$refs.param.$el.offsetTop-44);
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop-44);
       this.themeTopYs.push(this.$refs.recommends.$el.offsetTop-44);
+      this.themeTopYs.push(Number.MAX_VALUE);
       console.log(this.themeTopYs,"---")
     },
     titleClick(index){
@@ -144,30 +145,38 @@ export default {
       const positionY = -position.y
 
       // 2.positionY和主题中的值进行对比
-      // [0,725,1412,1765]
+      // [0,725,1412,1765,非常大的值(Number.MAX_VALUE)]
       // positionY 在 0~725 之间，index = 0
       // positionY 在 =725~1412 之间，index= 1
       // positionY 在 1412~1765 之间，index = 2
 
-      // positionY 大于等于 1765 ，index= 3
+      // positionY 大于等于 1765 ，index= 3  或者 positionY 在 1765和一个非常大的值之间 ，index= 3 
 
       let length = this.themeTopYs.length
 
-      for(let i = 0; i < this.themeTopYs.length; i++){
+      for(let i = 0; i < this.themeTopYs.length-1; i++){
         // console.log(i)
         // 下面写法错误
         // if(positionY > this.themeTopYs[i] && positionY < this.themeTopYs[i+1]){
         //   console.log(i,"---")
         // }
 
-        // 正确写法
-        if(this.currentIndex !== i && ((i < length -1 && positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i+1]) || 
-        (i === length -1 && positionY >= this.themeTopYs[i]))){
-          // console.log(i,'---')
-          this.currentIndex = i
-          console.log(this.currentIndex)
-          this.$refs.nav.currentIndex = this.currentIndex
+        // 正确写法（普通做法）
+        // if(this.currentIndex !== i && ((i < length -1 && positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i+1]) || 
+        // (i === length -1 && positionY >= this.themeTopYs[i]))){
+        //   // console.log(i,'---')
+        //   this.currentIndex = i
+        //   console.log(this.currentIndex)
+        //   this.$refs.nav.currentIndex = this.currentIndex
+        // }
+
+        // 优化后
+        if(this.currentIndex !== i && (positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i+1])){
+            this.currentIndex = i
+            this.$refs.nav.currentIndex = this.currentIndex
         }
+
+
       }
     }
   },
