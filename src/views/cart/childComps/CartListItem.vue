@@ -2,10 +2,10 @@
   <div id="shop-item">
     {{itemInfo}}
     <div class="item-selector">
-      <!-- <CheckButton @checkBtnClick="checkedChange" v-model="itemInfo.checked"></CheckButton> -->
+      <CheckButton @checkBtnClick="checkedChange" v-model="itemInfo.checked"></CheckButton>
     </div>
     <div class="item-img">
-      <img :src="itemInfo.imgURL" alt="商品图片">
+      <img :src="itemInfo.image" alt="商品图片">
     </div>
     <div class="item-info">
       <div class="item-title">{{itemInfo.title}}</div>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  // import CheckButton from './CheckButton'
+  import CheckButton from './CheckButton'
 
   export default {
     name: "ShopCartItem",
@@ -30,7 +30,7 @@
       }
     },
     components: {
-      // CheckButton
+      CheckButton
     },
     methods: {
       checkedChange: function () {

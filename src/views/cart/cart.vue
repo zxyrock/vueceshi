@@ -36,7 +36,7 @@ export default {
       length: "cartLength",
       list: "cartList",
     }),
-  },
+  }
 };
 </script>
 
