@@ -11,6 +11,8 @@ export default {
     payload.counter++
   },
   [ADD_TO_CART](state, payload) {
+    // 默认商品为选中属性
+    payload.checked = true
     state.cartList.push(payload)
   }
 }

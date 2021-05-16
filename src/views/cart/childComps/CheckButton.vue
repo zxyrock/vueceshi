@@ -15,7 +15,7 @@
         default: true
       }
     },
-    data: function () {
+    data() {
 		  return {
 		    checked: this.value
       }
@@ -26,7 +26,7 @@
       }
     },
     watch: {
-		  value: function (newValue) {
+		  value(newValue) {
         this.checked = newValue;
       }
     }

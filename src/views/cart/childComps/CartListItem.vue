@@ -33,7 +33,7 @@
       CheckButton
     },
     methods: {
-      checkedChange: function () {
+      checkedChange() {
         this.itemInfo.checked = !this.itemInfo.checked;
       }
     }
