@@ -150,7 +150,6 @@ export default {
     titleClick(index){
       console.log(index)
       this.$refs.scroll.scrollTo(0,-this.themeTopYs[index],100)
-
     },
     contentScroll(position){
       // console.log(position)
@@ -205,9 +204,9 @@ export default {
       product.price = this.goods.newPrice;
       product.iid = this.iid;
 
-
       // 2.将商品添加到购物车里面
-      this.$store.commit('addCart',product)
+      // this.$store.commit('addCart',product)
+      this.$store.dispatch('addCart',product)
 
     }
   },
