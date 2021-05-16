@@ -195,7 +195,7 @@ export default {
       product.image = this.topImages[0]
       product.title = this.goods.title;
       product.desc = this.goods.desc;
-      product.price = this.goods.newPrice;
+      product.nowPrice = this.goods.nowPrice;
       product.iid = this.iid;
 
       // 2.将商品添加到购物车里面
