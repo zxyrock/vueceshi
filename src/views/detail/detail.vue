@@ -2,6 +2,12 @@
   <div id="detail">
     <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"/>
     <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+      <!-- <div>{{$store.state.cartList.length}}</div> -->
+      <ul>
+        <li v-for="{item,index} in $store.state.cartList" :key="index">
+          {{item}}
+        </li>
+      </ul>
       <!--属性：topImages， 传入值：top-images-->
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods="goods"/>
@@ -201,6 +207,7 @@ export default {
 
 
       // 2.将商品添加到购物车里面
+      this.$store.commit('addCart',product)
 
     }
   },
