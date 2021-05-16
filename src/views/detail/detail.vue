@@ -12,7 +12,7 @@
       <goods-list ref="recommends" :goods="recommends"/>
     </scroll>
     
-    <detail-bottom-bar/>
+    <detail-bottom-bar  @addToCart="addToCart"/>
 
     <back-top @click="backTop" v-show="isShowBackTop"/>
     
@@ -74,7 +74,7 @@ export default {
 
     // 2.根据iid请求详情数据
     getDetail(this.iid).then(res=> {
-      // console.log(res)
+      console.log(res)
       // 1.获取轮播图数据
       this.topImages = res.result.itemInfo.topImages
 
@@ -188,6 +188,20 @@ export default {
 
 
       }
+    },
+    addToCart(){
+      // console.log('---123---')
+      // 1.获取加入添加到购物车需要展示的商品信息
+      const product = {}
+      product.image = this.topImages[0]
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.newPrice;
+      product.iid = this.iid;
+
+
+      // 2.将商品添加到购物车里面
+
     }
   },
   mounted(){

@@ -27,6 +27,7 @@
     methods: {
       addToCart() {
         this.$emit('addToCart')
+        console.log('点击了添加到购物车')
       }
     }
 	}
