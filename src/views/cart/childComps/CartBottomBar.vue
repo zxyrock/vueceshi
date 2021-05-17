@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-bar">
     <div class="checked-content">
-      <check-button class="checked-all" :is-checked="isSelectAll"/>
+      <check-button class="checked-all" :is-checked="isSelectAll" @click="checkClick" />
       <span>全选</span>
     </div>
 
@@ -62,6 +62,25 @@ export default {
     
     return true
    }
+  },
+  methods:{
+    checkClick(){
+      // console.log('全选按钮被点击')
+      // 全部选中状态条件
+      if(this.isSelectAll){
+        // 点击后变成全部不选中
+        this.$store.state.cartList.forEach(item => item.checked = false)
+      }else{
+        // 有部分没选中或全部都没选中的状态，点击后改为全选中
+        this.$store.state.cartList.forEach(item => item.checked = true)
+      }
+      // 注：以上的条件判断不可简化
+      // 错误写法：
+      // return this.$store.state.cartList.forEach(item => item.checked = !this.isSelectAll)
+      // 这种写法this.isSelectAll与checked会互相改，改变计算属性中isSelectAll的值，会乱改
+    }
+    
+    
   }
 }
 </script>
