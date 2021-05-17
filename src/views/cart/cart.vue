@@ -9,12 +9,14 @@
       <!--商品收藏列表-->
       <cart-list/>
       <!--底部汇总-->
+      <cart-bottom-bar/>
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/common/navbar/NavBar";
 import CartList from './childComps/CartList';
+import CartBottomBar from './childComps/CartBottomBar';
 
 
 
@@ -27,6 +29,7 @@ export default {
   components: {
     NavBar,
     CartList,
+    CartBottomBar
   },
   computed: {
     // 两种语法，第一种：用数组的方式将这里需要拿来的函数传入
