@@ -5,6 +5,10 @@
       <span>全选</span>
     </div>
 
+    <div class="add-price"> 合计：￥{{totalPrice}}</div>
+
+    <div class="calculate">去计算：({{checkLength}})</div>
+
   </div>
 </template>
 
@@ -15,21 +19,51 @@ export default {
   name:'CartBottomBar',
   components:{
     CheckButton
+  },
+  computed:{
+   totalPrice(){
+    // vue3不支持filter过滤器
+    //  return this.$store.state.cartLis.filter(item => {
+    //    return item.chexked
+    //  }).reduce((preValue,item) => {
+    //     return preValue + (item.nowPrice * item.counter)
+    //  },0).toFiixed(2)
+
+    // 自己写的，错误
+    // let item = this.$store.state.cartList
+    // for(let i = 0;i<item.length;i++){
+    //   let obj = {}
+    //   if(item.checked){
+    //     return obj.price += (item.newPrice * item.counter)
+    //   }
+    // }
+
+    //先随便返回个数
+    return 1000
+   },
+   checkLength(){
+    //  return this.$store.state.cartList.filter(item => item.checked).length
+    return 5;
+   }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .bottom-bar{
+  position: relative;
+
   height: 40px;
   background: #eee;
-  position: relative;
   line-height: 40px;
+  display: flex;
+  font-size: 14px;
 
 }
 
 .checked-content{
   display: flex;
+  width: 60px;
   align-items: center;
   margin-left: 10px;
   
@@ -40,5 +74,19 @@ export default {
   height: 20px;
   line-height: 20px;
   margin-right: 5px;
+}
+
+.add-price{
+  /* margin-left: 30px; */
+  text-align: center;
+  flex: 1;
+}
+
+.calculate{
+  width: 90px;
+  background: #ff8198;
+  color: #fff;
+  font-weight: 700px;
+  text-align: center;
 }
 </style>

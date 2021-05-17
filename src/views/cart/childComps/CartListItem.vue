@@ -12,7 +12,7 @@
       <div class="item-desc">商品描述: {{itemInfo.desc}}</div>
       <div class="info-bottom">
         <div class="item-price left">¥{{itemInfo.nowPrice}}</div>
-        <div class="item-count right">x{{itemInfo.count}}</div>
+        <div class="item-count right">x{{itemInfo.counter}}</div>
       </div>
     </div>
   </div>
