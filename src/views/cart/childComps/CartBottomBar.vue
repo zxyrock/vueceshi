@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-bar">
     <div class="checked-content">
-      <check-button class="checked-all"/>
+      <check-button class="checked-all" :is-checked="isSelectAll"/>
       <span>全选</span>
     </div>
 
@@ -44,6 +44,23 @@ export default {
    checkLength(){
     //  return this.$store.state.cartList.filter(item => item.checked).length
     return 5;
+   },
+   isSelectAll(){
+     if(this.$store.state.cartList.length === 0)  return false
+
+    // 方法一：过滤器filter()
+    //  return !(this.$store.state.cartList.filter(item => !item.checked).length)
+    // 方法二：find()
+    // return !this.$store.state.cartList.find(item => !item.checked)
+
+    // 方法三：数组遍历
+    for(let item of this.$store.state.cartList){
+       if(!item.checked){
+         return false
+       }
+    }
+    
+    return true
    }
   }
 }
