@@ -7,7 +7,7 @@
 
     <div class="add-price"> 合计：￥{{totalPrice}}</div>
 
-    <div class="calculate">去计算：({{checkLength}})</div>
+    <div class="calculate" @click="calcClick">去计算：({{checkLength}})</div>
 
   </div>
 </template>
@@ -80,6 +80,11 @@ export default {
       // 这种写法this.isSelectAll与checked会互相改，改变计算属性中isSelectAll的值，会乱改
 
       this.$store.state.cartList.Vue.filter(id, [definition])
+    },
+    calcClick(){
+      if(!this.isSelectAll){
+        this.$toast.show('请选择购买的商品',2000)
+      }
     }
     
     

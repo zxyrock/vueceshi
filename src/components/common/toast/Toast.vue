@@ -1,5 +1,5 @@
 <template>
-  <div class="toast" v-show="show">
+  <div class="toast" v-show="isShow">
      <div>{{message}}</div>
   </div>
 </template>
@@ -8,13 +8,32 @@
 export default {
   name:'Toast',
   props:{
-    message:{
-      type:String,
-      default:''
-    },
-    show:{
-      type:Boolean,
-      default:false
+    // message:{
+    //   type:String,
+    //   default:''
+    // },
+    // show:{
+    //   type:Boolean,
+    //   default:false
+    // }
+  },
+  data() {
+    return {
+      message:'',
+      isShow:false
+    }
+  },
+  methods:{
+    show(message="默认文字",duration=2000){
+      //es6语法可以直接在参数找那个设置默认值，es5设置默认值的写法如下：
+      // duration = duration || 2000
+      this.isShow = true;
+      this.message = message;
+
+      setTimeout(()=>{
+        this.isShow = false;
+        this.message = '';
+      },duration)
     }
   }
 }

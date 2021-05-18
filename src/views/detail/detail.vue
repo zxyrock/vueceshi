@@ -16,7 +16,7 @@
 
     <back-top @click="backTop" v-show="isShowBackTop"/>
 
-    <toast :message="message" :show="show" />
+    <!-- <toast :message="message" :show="show" /> -->
     
   </div>
 </template>
@@ -33,7 +33,7 @@ import DetailBottomBar from './detailComps/DetailBottomBar'
 
 import Scroll from "@/components/content/scroll/Scroll"
 import GoodsList from "@/components/content/goods/GoodsList"
-import Toast from '@/components/common/toast/Toast'
+// import Toast from '@/components/common/toast/Toast'
 
 import {getDetail,Goods,Shop,GoodsParam,getRecommend} from '@/network/detail';
 // import {debounce} from '@/common/utils';
@@ -56,8 +56,8 @@ export default {
       itemImgListener:null,
       themeTopYs:[],
       currentIndex:0,
-      message:'',
-      show:false
+      // message:'',
+      // show:false
     }
   },
   components:{
@@ -210,14 +210,18 @@ export default {
       // 2.将商品添加到购物车里面
       // this.$store.commit('addCart',product)
       this.addCart(product).then(res =>{
-        this.show = true;
-        this.message = res;
         console.log(res)
 
-        setTimeout(()=>{
-         this.show = false;
-         this.message = '';
-        },1500)
+        // this.show = true;
+        // this.message = res;
+
+        // setTimeout(()=>{
+        //  this.show = false;
+        //  this.message = '';
+        // },1500)
+
+        this.$toast.show(res,2000)
+        console.log(this.$toast)
       })
       // this.$store.dispatch('addCart',product).then(res =>{
       //   console.log(res)
