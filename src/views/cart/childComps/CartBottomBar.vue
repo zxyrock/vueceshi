@@ -78,6 +78,8 @@ export default {
       // 错误写法：
       // return this.$store.state.cartList.forEach(item => item.checked = !this.isSelectAll)
       // 这种写法this.isSelectAll与checked会互相改，改变计算属性中isSelectAll的值，会乱改
+
+      this.$store.state.cartList.Vue.filter(id, [definition])
     }
     
     

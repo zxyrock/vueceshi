@@ -6,7 +6,8 @@ import {
 
 export default {
   addCart(context,payload){
-    // payload新添加的商品
+    return new Promise((resolve,reject) => {
+        // payload新添加的商品
     // 第一种方法
     // let oldProduct = null
     // for(let item of context.state.cartList){
@@ -41,10 +42,13 @@ export default {
     if(oldProduct){
       // oldProduct.count += 1
       context.commit(ADD_COUNTER,oldProduct)
+      resolve('当前的商品数量+1')
     }else{
       payload.counter = 1
       // context.state.cartList.push(payload)
       context.commit(ADD_TO_CART,payload)
+      resolve('添加新了的商品')
     }
+    })
   }
 }
