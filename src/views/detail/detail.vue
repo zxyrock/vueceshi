@@ -71,7 +71,7 @@ export default {
     DetailBottomBar,
     Scroll,
     GoodsList,
-    Toast
+    // Toast
     
     
   },

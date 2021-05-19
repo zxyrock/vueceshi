@@ -1,5 +1,5 @@
 <template>
-  <div id="tab-bar">
+  <div class="tab-bar">
     <slot></slot>
     
   </div>
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style>
-#tab-bar {
+.tab-bar {
   display: flex;
   background: #f6f6f6;
   position: fixed;
