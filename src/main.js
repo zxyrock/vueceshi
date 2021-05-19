@@ -5,6 +5,7 @@ import store from './store'
 
 import toast from './components/common/toast'
 import FastClick from 'fastclick'
+// import VueLazyLoad from 'vue-lazyload'
 
 
 createApp(App).use(store).use(router).use(toast).mount('#app')
